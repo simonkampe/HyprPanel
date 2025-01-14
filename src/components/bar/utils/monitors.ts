@@ -119,8 +119,8 @@ export const gdkMonitorIdToHyprlandId = (monitor: number, usedHyprlandMonitors: 
     const directMatch = hyprlandService.get_monitors().find((hypMon) => {
         const isVertical = hypMon?.transform !== undefined ? hypMon.transform % 2 !== 0 : false;
 
-        const width = isVertical ? hypMon.height : hypMon.width;
-        const height = isVertical ? hypMon.width : hypMon.height;
+        const width = (isVertical ? hypMon.height : hypMon.width) / hypMon.scale;
+        const height = (isVertical ? hypMon.width : hypMon.height) / hypMon.scale;
 
         const hyprlandKey = `${hypMon.model}_${width}x${height}_${hypMon.scale}`;
         return gdkMonitor.key.startsWith(hyprlandKey) && !usedHyprlandMonitors.has(hypMon.id) && hypMon.id === monitor;
@@ -135,8 +135,8 @@ export const gdkMonitorIdToHyprlandId = (monitor: number, usedHyprlandMonitors: 
     const hyprlandMonitor = hyprlandService.get_monitors().find((hypMon) => {
         const isVertical = hypMon?.transform !== undefined ? hypMon.transform % 2 !== 0 : false;
 
-        const width = isVertical ? hypMon.height : hypMon.width;
-        const height = isVertical ? hypMon.width : hypMon.height;
+        const width = (isVertical ? hypMon.height : hypMon.width) / hypMon.scale;
+        const height = (isVertical ? hypMon.width : hypMon.height) / hypMon.scale;
 
         const hyprlandKey = `${hypMon.model}_${width}x${height}_${hypMon.scale}`;
         return gdkMonitor.key.startsWith(hyprlandKey) && !usedHyprlandMonitors.has(hypMon.id);
